@@ -1,4 +1,5 @@
-# Feel free to add any utility classes you want to share with others!
+# 🔧 gutil
+Feel free to add any utility classes/functions you want to share with others!
 
 ## Installation
 
