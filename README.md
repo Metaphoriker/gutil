@@ -1,3 +1,5 @@
+# Feel free to add any utility classes you want to share with others!
+
 ## Installation
 
 ### Maven
@@ -25,6 +27,6 @@ allprojects {
 }
 
 dependencies {
-    implementation 'de.godcihper:gutil:VERSION'
+    implementation 'de.godcipher:gutil:VERSION'
 }
 ```
