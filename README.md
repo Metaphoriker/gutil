@@ -12,9 +12,9 @@
 </repositories>
 
 <dependency>
-    <groupId>de.godcipher</groupId>
+    <groupId>com.github.godcipher</groupId>
     <artifactId>gutil</artifactId>
-    <version>VERSION</version>
+    <version>1.0</version>
 </dependency>
 ```
 
@@ -27,6 +27,6 @@ allprojects {
 }
 
 dependencies {
-    implementation 'de.godcipher:gutil:VERSION'
+    implementation 'com.github.godcipher:gutil:VERSION'
 }
 ```
