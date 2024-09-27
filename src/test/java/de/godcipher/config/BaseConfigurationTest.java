@@ -74,6 +74,48 @@ class BaseConfigurationTest {
   }
 
   @Test
+  void testDoubleFieldLoadAndSave() throws Exception {
+    Field doubleField = TestConfiguration.class.getDeclaredField("testDouble");
+    doubleField.setAccessible(true);
+
+    assertEquals(123.456, (double) doubleField.get(config));
+
+    doubleField.set(config, 100.0);
+    config.saveConfiguration();
+
+    config.reloadConfig();
+    assertEquals(100.0, (double) doubleField.get(config));
+  }
+
+  @Test
+  void testLongFieldLoadAndSave() throws Exception {
+    Field longField = TestConfiguration.class.getDeclaredField("testLong");
+    longField.setAccessible(true);
+
+    assertEquals(1234567890L, (long) longField.get(config));
+
+    longField.set(config, 100L);
+    config.saveConfiguration();
+
+    config.reloadConfig();
+    assertEquals(100L, (long) longField.get(config));
+  }
+
+  @Test
+  void testFloatFieldLoadAndSave() throws Exception {
+    Field floatField = TestConfiguration.class.getDeclaredField("testFloat");
+    floatField.setAccessible(true);
+
+    assertEquals(123.456f, (float) floatField.get(config));
+
+    floatField.set(config, 100.0f);
+    config.saveConfiguration();
+
+    config.reloadConfig();
+    assertEquals(100.0f, (float) floatField.get(config));
+  }
+
+  @Test
   void testFileCreationAndLoading() {
     File configFile = new File("test-config.yml");
     assertTrue(configFile.exists(), "Config file should be created initially.");

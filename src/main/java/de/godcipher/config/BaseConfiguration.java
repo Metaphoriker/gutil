@@ -199,6 +199,12 @@ public abstract class BaseConfiguration {
       field.set(this, newValue);
     } else if (type == int.class || type == Integer.class) {
       field.set(this, Integer.parseInt(newValue));
+    } else if (type == long.class || type == Long.class) {
+      field.set(this, Long.parseLong(newValue));
+    } else if (type == double.class || type == Double.class) {
+      field.set(this, Double.parseDouble(newValue));
+    } else if (type == float.class || type == Float.class) {
+      field.set(this, Float.parseFloat(newValue));
     } else if (type == boolean.class || type == Boolean.class) {
       field.set(this, Boolean.parseBoolean(newValue));
     } else if (List.class.isAssignableFrom(type)) {
