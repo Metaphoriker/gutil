@@ -30,8 +30,8 @@ public abstract class BaseConfiguration {
   }
 
   public void initialize() {
-    loadFileIfExists();
-    loadConfigValues();
+    reloadConfig();
+    saveConfiguration();
   }
 
   /**
