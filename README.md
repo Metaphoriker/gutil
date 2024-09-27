@@ -92,3 +92,20 @@ class TestConfiguration extends BaseConfiguration {
     private boolean testBoolean = true;
 }
 ```
+
+After that you can initialize the configuration and use it like this:
+
+```java
+public static void main(String[] args) {
+    TestConfiguration config = new TestConfiguration();
+    config.initialize(); // loads the configuration from file or creates a new one
+
+    System.out.println(config.getTestString());
+    System.out.println(config.getTestInt());
+    System.out.println(config.getTestDouble());
+    System.out.println(config.getTestLong());
+    System.out.println(config.getTestFloat());
+    System.out.println(config.getTestList());
+    System.out.println(config.isTestBoolean());
+}
+```
