@@ -131,7 +131,7 @@ public abstract class BaseConfiguration {
     if (fieldValue != null) {
       option = new ConfigurationOption<>(fieldValue, configValueAnnotation.description());
     } else {
-      option = new ConfigurationOption<>("default", configValueAnnotation.description());
+      option = new ConfigurationOption<>("", configValueAnnotation.description());
     }
     setConfigOption(key, option);
   }
