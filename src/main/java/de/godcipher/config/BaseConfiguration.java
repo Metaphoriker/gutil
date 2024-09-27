@@ -16,15 +16,12 @@ public abstract class BaseConfiguration {
 
   private final Map<String, ConfigurationOption<?>> configOptions = new LinkedHashMap<>();
   private final Properties properties = new Properties();
-  private final File file;
+
+  private File file;
 
   /** Constructor for BaseConfiguration, uses the file name from the @Configuration annotation. */
   public BaseConfiguration() {
-    Configuration configAnnotation = this.getClass().getAnnotation(Configuration.class);
-    if (configAnnotation == null || configAnnotation.fileName().isEmpty()) {
-      throw new IllegalStateException("Missing or empty @Configuration annotation with fileName.");
-    }
-
+    Configuration configAnnotation = retrieveConfigurationAnnotation();
     this.file = new File(configAnnotation.fileName());
     createDirectoryIfNotExists(file.getParentFile());
   }
@@ -36,6 +33,29 @@ public abstract class BaseConfiguration {
   public void initialize() {
     reloadConfig();
     saveConfiguration();
+  }
+
+  /**
+   * Set the directory where the configuration file should be saved.
+   *
+   * @param directory The directory path as a String or File
+   */
+  public void setDirectory(File directory) {
+    if (directory == null) {
+      throw new IllegalArgumentException("The directory must not be null");
+    }
+
+    Configuration configAnnotation = retrieveConfigurationAnnotation();
+    this.file = new File(directory, configAnnotation.fileName());
+    createDirectoryIfNotExists(directory);
+  }
+
+  private Configuration retrieveConfigurationAnnotation() {
+    Configuration configAnnotation = this.getClass().getAnnotation(Configuration.class);
+    if (configAnnotation == null || configAnnotation.fileName().isEmpty()) {
+      throw new IllegalStateException("Missing or empty @Configuration annotation with fileName.");
+    }
+    return configAnnotation;
   }
 
   /**
