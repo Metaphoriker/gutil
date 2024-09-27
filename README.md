@@ -16,9 +16,9 @@ Feel free to add any utility classes/functions you want to share with others!
 </repositories>
 
 <dependency>
-<groupId>com.github.godcipher</groupId>
-<artifactId>gutil</artifactId>
-<version>1.0</version>
+    <groupId>com.github.godcipher</groupId>
+    <artifactId>gutil</artifactId>
+    <version>VERSION</version>
 </dependency>
 ```
 
