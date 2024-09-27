@@ -29,6 +29,10 @@ public abstract class BaseConfiguration {
     createDirectoryIfNotExists(file.getParentFile());
   }
 
+  /**
+   * Loads the configuration file and updates internal options. Creates the configuration file if it
+   * does not exist.
+   */
   public void initialize() {
     reloadConfig();
     saveConfiguration();
