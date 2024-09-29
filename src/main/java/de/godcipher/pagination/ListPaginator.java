@@ -50,7 +50,7 @@ public class ListPaginator<T> {
    */
   private List<T> getItemsInRange(int fromIndex, int toIndex) {
     if (fromIndex >= items.size()) {
-      return Collections.emptyList(); // Immutable
+      return Collections.emptyList();
     }
     return Collections.unmodifiableList(items.subList(fromIndex, toIndex));
   }
