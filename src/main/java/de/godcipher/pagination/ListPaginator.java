@@ -3,7 +3,7 @@ package de.godcipher.pagination;
 import java.util.Collections;
 import java.util.List;
 
-/** A paginator for handling paginated views of a list of items. */
+/** An immutable paginator for handling paginated views of a list of items. */
 public class ListPaginator<T> {
 
   /** List of items to paginate through. */
@@ -29,7 +29,8 @@ public class ListPaginator<T> {
    * Retrieves a sublist of items for the specified page number.
    *
    * @param pageNumber the page number (zero-based index); must be non-negative
-   * @return a list of items for the specified page, or an empty list if the page is out of range
+   * @return an unmodifiable list of items for the specified page, or an empty list if the page is
+   *     out of range
    * @throws IllegalArgumentException if pageNumber is negative
    */
   public List<T> getPage(int pageNumber) {
@@ -40,17 +41,18 @@ public class ListPaginator<T> {
   }
 
   /**
-   * Returns a sublist of items for the specified index range.
+   * Returns a sublist of items for the specified index range, wrapped in an unmodifiable list.
    *
    * @param fromIndex the starting index (inclusive)
    * @param toIndex the ending index (exclusive)
-   * @return a list of items within the range, or an empty list if fromIndex is out of range
+   * @return an unmodifiable list of items within the range, or an empty list if fromIndex is out of
+   *     range
    */
   private List<T> getItemsInRange(int fromIndex, int toIndex) {
     if (fromIndex >= items.size()) {
       return Collections.emptyList(); // Immutable
     }
-    return items.subList(fromIndex, toIndex);
+    return Collections.unmodifiableList(items.subList(fromIndex, toIndex));
   }
 
   /**

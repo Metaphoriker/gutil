@@ -20,6 +20,34 @@ class ListPaginatorTest {
   }
 
   @Test
+  public void testGetPageReturnsImmutableList() {
+    List<String> firstPage = paginator.getPage(0);
+
+    assertEquals(Arrays.asList("A", "B", "C"), firstPage);
+
+    try {
+      firstPage.add("F");
+      fail("Expected UnsupportedOperationException");
+    } catch (UnsupportedOperationException e) {
+      // Exception is expected, test passes
+    }
+
+    try {
+      firstPage.removeFirst();
+      fail("Expected UnsupportedOperationException");
+    } catch (UnsupportedOperationException e) {
+      // Exception is expected, test passes
+    }
+
+    try {
+      firstPage.set(0, "Z");
+      fail("Expected UnsupportedOperationException");
+    } catch (UnsupportedOperationException e) {
+      // Exception is expected, test passes
+    }
+  }
+
+  @Test
   void testGetPage_FirstPage() {
     List<String> page = paginator.getPage(0);
     assertEquals(Arrays.asList("A", "B", "C"), page, "First page should return A, B, C");
