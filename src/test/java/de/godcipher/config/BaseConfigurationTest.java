@@ -29,6 +29,38 @@ class BaseConfigurationTest {
         "Abstract class should not be able to have the @Configuration annotation.");
   }
 
+  @Test
+  void testParentIntFieldLoadAndSave() throws Exception {
+    ChildConfig childConfig = new ChildConfig();
+    childConfig.initialize();
+
+    Field parentField = ParentConfig.class.getDeclaredField("parentField");
+    parentField.setAccessible(true);
+
+    assertEquals(1, parentField.get(childConfig));
+
+    parentField.set(childConfig, 100);
+    childConfig.saveConfiguration();
+    childConfig.reloadConfig();
+
+    assertEquals(100, parentField.get(childConfig));
+  }
+
+  public abstract class ParentConfig extends BaseConfiguration {
+    @ConfigValue(name = "parent-field", description = "Field from parent class")
+    private int parentField = 1;
+
+    protected int getParentField() {
+      return parentField;
+    }
+  }
+
+  @Configuration(fileName = "test-config.yml")
+  public class ChildConfig extends ParentConfig {
+    @ConfigValue(name = "child-field", description = "Field from child class")
+    private String childField = "childValue";
+  }
+
   // Test abstract class with the @Configuration annotation
   @Configuration(fileName = "abstract-config.yml")
   public abstract static class AbstractConfigClass extends BaseConfiguration {

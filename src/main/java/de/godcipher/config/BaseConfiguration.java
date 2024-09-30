@@ -91,6 +91,7 @@ public abstract class BaseConfiguration {
   public void saveConfiguration() {
     try (PrintWriter writer = new PrintWriter(new FileOutputStream(file))) {
       writeConfigHeader(writer);
+      syncFieldsWithConfigOptions();
       for (Map.Entry<String, ConfigurationOption<?>> entry : configOptions.entrySet()) {
         String key = entry.getKey();
         ConfigurationOption<?> option = entry.getValue();
@@ -98,8 +99,33 @@ public abstract class BaseConfiguration {
         writeValue(writer, key, option);
         writer.println();
       }
-    } catch (IOException e) {
+    } catch (IOException | IllegalAccessException e) {
       throw new IllegalStateException("Could not save configuration file: " + file.getName(), e);
+    }
+  }
+
+  /**
+   * Synchronizes the current field values with the configuration options.
+   *
+   * <p>This method iterates over the fields of the current class and its superclasses. For each
+   * field annotated with {@link ConfigValue}, the current field value is retrieved using reflection
+   * and the corresponding entry in the {@code configOptions} map is updated with this value.
+   *
+   * @throws IllegalAccessException if the field values cannot be accessed via reflection.
+   */
+  private void syncFieldsWithConfigOptions() throws IllegalAccessException {
+    List<Class<?>> classHierarchy = getClassHierarchy();
+    for (Class<?> clazz : classHierarchy) {
+      for (Field field : clazz.getDeclaredFields()) {
+        ConfigValue configValueAnnotation = field.getAnnotation(ConfigValue.class);
+        if (configValueAnnotation != null) {
+          field.setAccessible(true);
+          Object fieldValue = field.get(this);
+          ConfigurationOption<?> option =
+              new ConfigurationOption<>(fieldValue, configValueAnnotation.description());
+          configOptions.put(configValueAnnotation.name(), option);
+        }
+      }
     }
   }
 
