@@ -98,7 +98,30 @@ public abstract class BaseConfiguration {
    * class for fields annotated with @ConfigValue and updates their values.
    */
   private void loadConfigValues() {
+    List<Class<?>> classHierarchy = getClassHierarchy();
+    for (Class<?> clazz : classHierarchy) {
+      processClassFields(clazz);
+    }
+  }
+
+  /**
+   * Retrieves the class hierarchy for the current class.
+   *
+   * @return A list of classes in the hierarchy.
+   */
+  private List<Class<?>> getClassHierarchy() {
+    List<Class<?>> classHierarchy = new ArrayList<>();
     Class<?> clazz = this.getClass();
+    while (clazz != null && clazz != Object.class) {
+      classHierarchy.add(clazz);
+      clazz = clazz.getSuperclass();
+    }
+    Collections.reverse(classHierarchy); // super classes first
+    return classHierarchy;
+  }
+
+  /** Processes all fields in a class that are annotated with @ConfigValue. */
+  private void processClassFields(Class<?> clazz) {
     for (Field field : clazz.getDeclaredFields()) {
       ConfigValue configValueAnnotation = field.getAnnotation(ConfigValue.class);
       if (configValueAnnotation != null) {
