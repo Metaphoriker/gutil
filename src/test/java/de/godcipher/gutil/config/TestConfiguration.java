@@ -1,8 +1,8 @@
 package de.godcipher.gutil.config;
 
-import de.godcipher.gutil.config.BaseConfiguration;
 import de.godcipher.gutil.config.annotation.ConfigValue;
 import de.godcipher.gutil.config.annotation.Configuration;
+import java.util.Arrays;
 import java.util.List;
 
 // A concrete class for testing the abstract BaseConfiguration class
@@ -25,7 +25,7 @@ class TestConfiguration extends BaseConfiguration {
   private float testFloat = 123.456f;
 
   @ConfigValue(name = "test-list", description = "Test list configuration")
-  private List<String> testList = List.of("item1", "item2", "item3");
+  private List<String> testList = Arrays.asList("item1", "item2", "item3");
 
   @ConfigValue(name = "test-boolean", description = "Test boolean configuration")
   private boolean testBoolean = true;

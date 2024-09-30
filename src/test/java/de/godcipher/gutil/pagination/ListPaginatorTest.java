@@ -35,7 +35,7 @@ class ListPaginatorTest {
     }
 
     try {
-      firstPage.removeFirst();
+      firstPage.remove(0);
       fail("Expected UnsupportedOperationException");
     } catch (UnsupportedOperationException e) {
       // Exception is expected, test passes
