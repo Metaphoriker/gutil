@@ -1,5 +1,7 @@
 package de.godcipher.config;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import de.godcipher.config.annotation.ConfigValue;
 import de.godcipher.config.annotation.Configuration;
 import java.io.File;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 
 /** BaseConfiguration is a class that manages configuration options and saves them to a file. */
 public abstract class BaseConfiguration {
+
+  private static final Gson GSON = new Gson();
 
   private final Map<String, ConfigurationOption<?>> configOptions = new LinkedHashMap<>();
   private final Properties properties = new Properties();
@@ -247,16 +251,10 @@ public abstract class BaseConfiguration {
    */
   private void writeValue(PrintWriter writer, String key, ConfigurationOption<?> option) {
     Object value = option.getValue();
-    if (value instanceof List) {
-      @SuppressWarnings("unchecked")
-      List<Object> list = (List<Object>) value;
-      String formattedList =
-          list.stream().map(Object::toString).collect(Collectors.joining(", ", "[", "]"));
-      writer.printf("%s: %s%n", key, formattedList);
-    } else {
-      writer.printf("%s: %s%n", key, value.toString());
-    }
+    String serializedValue = GSON.toJson(value);
+    writer.printf("%s: %s%n", key, serializedValue);
   }
+
 
   /**
    * Writes the comment for a given configuration option.
@@ -278,24 +276,12 @@ public abstract class BaseConfiguration {
    */
   private <T> void assignNewValue(Field field, String newValue) throws IllegalAccessException {
     Class<?> type = field.getType();
-    if (type == String.class) {
-      field.set(this, newValue);
-    } else if (type == int.class || type == Integer.class) {
-      field.set(this, Integer.parseInt(newValue));
-    } else if (type == long.class || type == Long.class) {
-      field.set(this, Long.parseLong(newValue));
-    } else if (type == double.class || type == Double.class) {
-      field.set(this, Double.parseDouble(newValue));
-    } else if (type == float.class || type == Float.class) {
-      field.set(this, Float.parseFloat(newValue));
-    } else if (type == boolean.class || type == Boolean.class) {
-      field.set(this, Boolean.parseBoolean(newValue));
-    } else if (List.class.isAssignableFrom(type)) {
-      newValue = newValue.replace("[", "").replace("]", "");
-      List<String> listValues = Arrays.asList(newValue.split(",\\s*"));
-      field.set(this, listValues);
-    } else {
-      throw new IllegalArgumentException("Unsupported field type: " + type.getName());
+    try {
+      Object value = GSON.fromJson(newValue, type);
+      field.set(this, value);
+    } catch (JsonSyntaxException e) {
+      throw new IllegalArgumentException(
+          "Unable to parse the configuration value for field: " + field.getName(), e);
     }
   }
 
