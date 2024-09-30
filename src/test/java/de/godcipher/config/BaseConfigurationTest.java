@@ -2,6 +2,8 @@ package de.godcipher.config;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import de.godcipher.config.annotation.ConfigValue;
+import de.godcipher.config.annotation.Configuration;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -15,6 +17,23 @@ class BaseConfigurationTest {
   @BeforeEach
   void setUp() {
     config = new TestConfiguration();
+  }
+
+  @Test
+  void testAbstractClassCannotHaveConfigurationAnnotation() {
+    assertThrows(
+        IllegalStateException.class,
+        () -> {
+          new AbstractConfigClass() {}.initialize();
+        },
+        "Abstract class should not be able to have the @Configuration annotation.");
+  }
+
+  // Test abstract class with the @Configuration annotation
+  @Configuration(fileName = "abstract-config.yml")
+  public abstract static class AbstractConfigClass extends BaseConfiguration {
+    @ConfigValue(name = "abstract-field", description = "Field from abstract class")
+    private String abstractField = "abstractValue";
   }
 
   @Test

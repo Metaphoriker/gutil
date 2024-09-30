@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,8 +51,17 @@ public abstract class BaseConfiguration {
     createDirectoryIfNotExists(directory);
   }
 
+  /**
+   * Retrieves the @Configuration annotation from the class.
+   *
+   * @return The Configuration annotation.
+   */
   private Configuration retrieveConfigurationAnnotation() {
-    Configuration configAnnotation = this.getClass().getAnnotation(Configuration.class);
+    Class<? extends BaseConfiguration> clazz = this.getClass();
+    Configuration configAnnotation = clazz.getAnnotation(Configuration.class);
+    if (Modifier.isAbstract(clazz.getModifiers())) {
+      throw new IllegalStateException("Abstract classes cannot have @Configuration annotations.");
+    }
     if (configAnnotation == null || configAnnotation.fileName().isEmpty()) {
       throw new IllegalStateException("Missing or empty @Configuration annotation with fileName.");
     }
