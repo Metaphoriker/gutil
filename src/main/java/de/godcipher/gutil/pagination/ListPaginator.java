@@ -1,4 +1,4 @@
-package de.godcipher.pagination;
+package de.godcipher.gutil.pagination;
 
 import java.util.Collections;
 import java.util.List;

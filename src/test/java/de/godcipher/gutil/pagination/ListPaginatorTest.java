@@ -1,10 +1,12 @@
-package de.godcipher.pagination;
+package de.godcipher.gutil.pagination;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import de.godcipher.gutil.pagination.ListPaginator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

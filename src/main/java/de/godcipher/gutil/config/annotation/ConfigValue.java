@@ -1,4 +1,4 @@
-package de.godcipher.config.annotation;
+package de.godcipher.gutil.config.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

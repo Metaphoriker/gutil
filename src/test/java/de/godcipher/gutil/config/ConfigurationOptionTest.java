@@ -1,7 +1,8 @@
-package de.godcipher.config;
+package de.godcipher.gutil.config;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import de.godcipher.gutil.config.ConfigurationOption;
 import org.junit.jupiter.api.Test;
 
 public class ConfigurationOptionTest {

@@ -42,7 +42,7 @@ dependencies {
 
 ```java
 
-import de.godcipher.pagination.ListPaginator;
+import de.godcipher.gutil.pagination.ListPaginator;
 
 import java.util.List;
 
@@ -62,9 +62,10 @@ Here is a simple test configuration. The values are automatically loaded from th
 otherwise the default values are used for first generation.
 
 ```java
-import de.godcipher.config.BaseConfiguration;
-import de.godcipher.config.annotation.ConfigValue;
-import de.godcipher.config.annotation.Configuration;
+import de.godcipher.gutil.config.BaseConfiguration;
+import de.godcipher.gutil.config.annotation.ConfigValue;
+import de.godcipher.gutil.config.annotation.Configuration;
+
 import java.util.List;
 
 @Configuration(fileName = "test-config.yml")

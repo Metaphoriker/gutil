@@ -1,10 +1,10 @@
-package de.godcipher.config;
+package de.godcipher.gutil.config;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import de.godcipher.config.annotation.ConfigHeader;
-import de.godcipher.config.annotation.ConfigValue;
-import de.godcipher.config.annotation.Configuration;
+import de.godcipher.gutil.config.annotation.ConfigHeader;
+import de.godcipher.gutil.config.annotation.ConfigValue;
+import de.godcipher.gutil.config.annotation.Configuration;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

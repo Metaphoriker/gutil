@@ -1,4 +1,4 @@
-package de.godcipher.config;
+package de.godcipher.gutil.config;
 
 
 /**

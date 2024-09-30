@@ -1,8 +1,8 @@
-package de.godcipher.config;
+package de.godcipher.gutil.config;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import de.godcipher.config.annotation.ConfigValue;
+import de.godcipher.gutil.config.annotation.ConfigValue;
 import java.lang.reflect.Field;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

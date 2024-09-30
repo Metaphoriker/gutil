@@ -1,7 +1,8 @@
-package de.godcipher.config;
+package de.godcipher.gutil.config;
 
-import de.godcipher.config.annotation.ConfigValue;
-import de.godcipher.config.annotation.Configuration;
+import de.godcipher.gutil.config.BaseConfiguration;
+import de.godcipher.gutil.config.annotation.ConfigValue;
+import de.godcipher.gutil.config.annotation.Configuration;
 import java.util.List;
 
 // A concrete class for testing the abstract BaseConfiguration class
