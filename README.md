@@ -16,7 +16,7 @@ Feel free to add any utility classes/functions you want to share with others!
 </repositories>
 
 <dependency>
-    <groupId>com.github.godcipher</groupId>
+    <groupId>com.github.Metaphoriker</groupId>
     <artifactId>gutil</artifactId>
     <version>VERSION</version>
 </dependency>
@@ -32,7 +32,7 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.godcipher:gutil:VERSION'
+    implementation 'com.github.Metaphoriker:gutil:VERSION'
 }
 ```
 
