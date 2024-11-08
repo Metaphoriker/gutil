@@ -1,3 +1,6 @@
+<img src="https://github.com/user-attachments/assets/f8e04de5-28fa-4015-91b4-c7e888982666" alt="Transparent" width="100" height="100" align="right" />
+<br><br>
+
 # 🔧 gutil
 
 Feel free to add any utility classes/functions you want to share with others!
